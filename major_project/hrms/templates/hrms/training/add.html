@@ -1,0 +1,96 @@
+{% extends 'hrms/layout.html' %}
+{% load static %}
+
+{% block title %} Training | EMS {% endblock title %}
+
+{% block content %}
+
+<style>
+  /* Center the form horizontally */
+  .main-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  /* Set max-width for the card */
+  .card {
+    max-width: 500px;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Apply padding to the form */
+  .card-body {
+    padding: 40px;
+  }
+
+  /* Apply styles to the small tag */
+  small {
+    display: block;
+    color: #888;
+    margin-bottom: 20px;
+  }
+
+  /* Apply styles to the button */
+  button.btn-outline-success {
+    width: 100%;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+
+  button.btn-outline-success:hover {
+    background-color: #4CAF50;
+    color: #fff;
+  }
+
+  /* Optional: Add margin between the form elements */
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  /* Style the form labels */
+  label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;  /* Added margin-bottom for better spacing */
+  }
+
+  /* Center the form content */
+  .text-center {
+    text-align: center;
+  }
+
+  /* Adjust the width of the select dropdown */
+  select {
+    width: calc(100% - 30px); /* Adjust the width as needed */
+    padding: 10px; /* Added padding for better spacing */
+  }
+</style>
+
+<div class="content-wrapper">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="text-center text-primary mb-4"><i class="fa fa-plus">&emsp; New Training Program </i></h4>
+          <form enctype="multipart/form-data" action="{% url 'hrms:training_create' %}" class="form-group" method="POST">
+            {% csrf_token %}
+            <small class="text-muted mb-3">** All fields are required**</small> {{ form.as_p }}
+            <div class="text-center mt-4">
+              <button class="btn btn-outline-success"><i class="mdi mdi-file-document"></i> Add Program</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

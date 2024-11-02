@@ -1,0 +1,110 @@
+{% extends 'hrms/layout.html' %}
+{% load static %}
+
+{% block title %} Edit Program | HRIS {% endblock title %}
+
+{% block content %}
+
+<style>
+  /* Container for a visually appealing layout */
+  .edit-program-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100vh; /* Increased width */
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Center the breadcrumb navigation */
+  .breadcrumb {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  /* Style the heading */
+  .edit-program-heading {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #28a745;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Horizontal line for separation */
+  hr {
+    border-top: 1px solid #ddd;
+    margin-bottom: 2rem;
+  }
+
+  /* Style the form */
+  .edit-program-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .edit-program-form label {
+    font-weight: bold;
+  }
+
+  /* Styling for form controls can be customized based on your form library */
+  .edit-program-form .form-control {
+    padding: 0.75rem 1rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
+  }
+
+  /* Center the submit button */
+  .submit-button-container {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  /* Style the submit button */
+  .btn-outline-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    border-radius: 0.25rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline-success:hover {
+    background-color: #1e7c3c;
+    border-color: #1e7c3c;
+  }
+</style>
+
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="edit-program-container">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'hrms:dashboard' %}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'hrms:training_list' %}">Training</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Edit</li>
+          </ol>
+        </nav>
+
+        <h4 class="edit-program-heading"><i class="fa fa-edit">&emsp; Edit Program</i></h4>
+        <hr>
+
+        <form enctype="multipart/form-data" class="edit-program-form" method="POST">
+          {% csrf_token %}
+          <small class="text-muted mb-4">** All Fields are required</small>
+          {{ form.as_p }}
+          <div class="submit-button-container">
+            <button class="btn btn-outline-success"><i class="mdi mdi-cloud-download"></i> Update Program</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,114 @@
+{% extends 'hrms/layout.html' %}
+{% load static %}
+{% block title %} Recruitment | HRIS {% endblock title %}
+      <!--  MAIN BODY START HERE -->
+          {% block content %}
+          <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-12 grid-margin">
+                        <div class="card">
+                            <div class="card-body">
+                                    <form enctype="multipart/form-data" action="{% url 'hrms:recruitment_new' %}" class="form-group" method="POST">
+                                        {% csrf_token %}
+                                            {{form.as_p}}
+                                        <div class="text-center mt-3">
+                                            <button class="btn btn-outline-success"><i class="mdi mdi-file-document"></i>Create New Job Hiring</button></button>
+                                            
+                                        </div>
+                                    </form>
+                            
+                                               
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+                  <div class="table-responsive">
+                    
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>
+                            First name
+                          </th>
+                          <th>
+                            Last name
+                          </th>
+                          <th>
+                            Mobile
+                          </th>
+                          <th>
+                            E-mail
+                          </th>
+
+                         
+                           <th>
+                            Manage
+                          </th>
+                          <th>
+                            Status
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      {% for rc in recruit %}
+                        <tr>
+                          <td class="font-weight-medium">
+                            {{rc.first_name}}
+                          </td>
+                          <td>
+                            {{rc.last_name}}
+                          </td>
+                          <td>
+                            {{rc.phone}}
+                          </td>
+                          <td>
+                            {{rc.email}}
+                          </td>
+                         
+                           <td>
+                            {% comment %} <a href="{% url 'hrms:recruitmentdelete' pk=rc.id %}" class="btn btn-small btn-danger">Delete</a> {% endcomment %}
+                            <a href="/manage/{{ rc.id }}/" class="btn btn-small btn-danger" target="_blank">Review</a>
+                            {% comment %}<button class="btn btn-small btn-danger" onClick="MyWindow=window.open('{{rc.resume.url}}','MyWindow','width=1920,height=1080'); return false;">Review</button> {% endcomment %}
+                          </td>
+                          <td>
+                            {{rc.status}}
+                          </td>
+                        </tr>
+                      {% endfor %}                   
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+         
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>
+          function togglePdf() {
+              var pdfDiv = document.getElementById('pdf');
+              if (pdfDiv.style.display === 'none') {
+                  pdfDiv.style.display = 'block';
+              } else {
+                  pdfDiv.style.display = 'none';
+              }
+            }
+          function togglejob() {
+                var pdfDiv = document.getElementById('pdf');
+                if (pdfDiv.style.display === 'none') {
+                    pdfDiv.style.display = 'block';
+                } else {
+                    pdfDiv.style.display = 'none';
+                }
+          }
+      </script>
+        {% endblock content %}

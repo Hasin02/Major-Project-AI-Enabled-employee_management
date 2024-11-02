@@ -1,0 +1,77 @@
+{% extends 'hrms/layout.html' %}
+
+{% block title %}Calendar{% endblock title %}
+
+{% block content %}
+
+<style>
+    .calendar-container {
+        width: 100%;
+        margin: auto;
+    }
+
+    .calendar {
+        width: 100%;
+        font-size: 13px;
+        table-layout: fixed;
+    }
+
+    .calendar tr, .calendar td {
+        border: 1px solid black;
+    }
+
+    .calendar th {
+        padding: 10px;
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .calendar td {
+        width: 200px;
+        height: 150px;
+        padding: 20px 0px 0px 5px;
+    }
+
+    .month {
+        font-size: 25px;
+    }
+
+    .date {
+        font-size: 16px;
+    }
+
+    ul {
+        height: 100%;
+        padding: 0px 5px 0px 20px;
+    }
+
+    a {
+        color: #17a2b8;
+    }
+
+    .btn-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        margin-top: 20px; /* Move button container to the top */
+        padding: 0 20px; /* Add padding to the sides */
+    }
+
+    .btn {
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="btn-container">
+    <a class="btn btn-info" href="{% url 'hrms:calendar' %}?{{ prev_month }}">Previous Month</a>
+    <a href="{% url 'hrms:event_new' %}" class="btn btn-info">Add Event</a>
+    <a class="btn btn-info" href="{% url 'hrms:calendar' %}?{{ next_month }}">Next Month</a>
+</div>
+
+<div class="calendar-container">
+    {{ calendar|safe }}
+</div>
+
+{% endblock %}

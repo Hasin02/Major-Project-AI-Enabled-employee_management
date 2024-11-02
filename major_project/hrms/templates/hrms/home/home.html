@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'hrms/css/style.css' %}">
+    <style>
+        body {
+            background: #108dc7;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #ef8e38, #108dc7);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #ef8e38, #108dc7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+        .btn-orange {
+            background: #FDC830;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #F37335, #FDC830);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #F37335, #FDC830); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            color: #fff;
+        }
+        .btn-selenium {
+            background: #0f0c29;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            color: #fff;
+        }
+        .navbar {
+            padding: 1rem 0;
+        }
+        .card-header {
+            padding: 1rem;
+        }
+        .card-body {
+            padding: 1rem;
+        }
+        .footer {
+            background-color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+    </style>
+    <title>Home</title>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container">
+            <h1 class="display-4 mb-0">AI-Enabled Employee Management System</h1>
+            <a href="{% url 'hrms:recruitment' %}" class="btn btn-selenium">We are Hiring !!!</a>
+        </div>
+    </nav>
+    
+    <section class="container mt-4">
+        <div class="row">
+            <div class="col-lg-6">
+                <img src="{% static 'hrms/images/hr.png' %}" class="img-fluid" alt="HR Image">
+            </div>
+            <div class="col-lg-6">
+                <div class="card shadow">
+                    <div class="card-header btn-orange">
+                        <h2 class="mb-0">Introduction</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="lead text-justify">
+                            An Employee Management System (EMS) is a comprehensive software solution designed to streamline and optimize various aspects of workforce management within an organization. It typically encompasses functionalities such as attendance tracking, payroll processing, performance evaluation, and employee scheduling. EMS platforms not only facilitate administrative tasks but also enhance communication between management and staff through features like self-service portals and messaging systems.
+                        </p>
+                        <a href="{% url 'hrms:login' %}" class="btn btn-block btn-selenium">Administrator &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <div class="container">
+            <p class="mb-0">DEVELOPED BY AISWARYA AKSHIN HASIN</p>
+        </div>
+    </footer>
+</body>
+</html>

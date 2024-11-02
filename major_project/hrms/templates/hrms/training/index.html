@@ -1,0 +1,67 @@
+{% extends 'hrms/layout.html' %}
+{% load static %}
+
+{% block title %}Training Programs{% endblock title %}
+
+{% block content %}
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Training Programs</h4>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Duration</th>
+                    <th>Assigned To</th>
+                    <th>Manage</th>  <!-- Added Manage column -->
+                  </tr>
+                </thead>
+                <tbody>
+                  {% if training_programs %}
+                  {% for training_program in training_programs %}
+                  <tr>
+                    <td>{{ training_program.name }}</td>
+                    <td>{{ training_program.duration }}</td>
+                    <td>
+                    
+                     {{training_program.all_employees}}
+                    </td>
+                    <td>  <!-- Manage column cell -->
+                      <div class="btn-group dropdown">
+                        <button type="button" class="btn btn-success dropdown-toggle btn-rounded btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fa fa-cog "></i> Manage
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="{% url 'hrms:training_edit' program_id=training_program.pk %}">
+                            <i class="fa fa-edit text-info fa-fw"></i>Edit</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="{% url 'hrms:training_delete' program_id=training_program.pk %}">
+                            <i class="fa fa-trash text-danger fa-fw"></i>Delete</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  {% else %}
+                  <tr>
+                    <td colspan="4">No training programs found.</td>
+                  </tr>
+                  {% endif %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a href="{% url 'hrms:training_create' %}" class="btn btn-primary" style="position: fixed; bottom: 20px; right: 20px;">Add New Training Program</a>
+
+{% endblock content %}

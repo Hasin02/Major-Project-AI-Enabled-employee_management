@@ -1,0 +1,174 @@
+{% extends 'hrms/layout.html' %}
+{% load static %}
+{% block title %}Home | HRIS{% endblock title %}
+{% block content %}
+<style>
+.chatbot-container {
+  width: 83.3%; /* Set width to 100% for full width */
+  max-width: none; /* Remove max-width */
+  margin: 20px auto;
+  background-color: #e0f7fa; /* Cyan-white mix background */
+  border: 1px solid #00bcd4; /* Cyan border */
+  border-radius: 4px; /* Consistent border radius */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatbot-header {
+  background-color: #0097a7; /* Dark cyan for header */
+  color: #fff; /* White text */
+  padding: 15px;
+  text-align: center;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.chatbot-messages {
+  flex-grow: 1;
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 15px;
+  width: 100%;
+}
+
+.chatbot-messages .chat-message {
+  margin-bottom: 10px;
+}
+
+.chatbot-messages .user-message:before {
+  content: "Employee: "; /* Add "Employee" label before user messages */
+  font-weight: bold;
+  color: #ff5722; /* Orange color for user label */
+}
+
+.chatbot-messages .bot-message:before {
+  content: "AI-Shu: "; /* Add "AI-Shu" label before bot messages */
+  font-weight: bold;
+  color: #4285f4; /* Blue color for bot label */
+}
+
+.chatbot-input {
+  padding: 15px;
+  background-color: #e0f7fa; /* Cyan-white mix background */
+  border-top: 1px solid #0097a7; /* Dark cyan border on top */
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  display: flex; /* Use flexbox */
+  align-items: center; /* Align items vertically */
+  position: fixed; /* Keep the input field fixed */
+  bottom: 0; /* Positioned at the bottom */
+  width: 83.3%; /* Set width to match container */
+  max-width: none; /* Remove max-width */
+}
+
+.chatbot-input input {
+  flex-grow: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  font-family: inherit; /* Use system font */
+}
+
+.chatbot-input button {
+  padding: 12px 20px;
+  background-color: #00bcd4; /* Cyan button background */
+  color: #fff; /* White button text */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit; /* Use system font */
+  margin-left: 10px; /* Add margin to separate from input field */
+}
+
+.chatbot-input button:hover {
+  background-color: #008ba3; /* Slightly darker cyan on hover */
+}
+</style>
+<div class="chatbot-container">
+  <div class="chatbot-header">
+      AI-Shu
+  </div>
+  <div class="chatbot-messages" id="chatbotMessages">
+      <!-- Messages will be dynamically added here -->
+  </div>
+  <div class="chatbot-input">
+      <input type="text" id="chatbotInput" placeholder="Type a message...">
+      <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+const input = document.getElementById('chatbotInput');
+
+// Listen for Enter key press in the input field
+input.addEventListener('keydown', function(event) {
+    // Check if the key pressed is the Enter key
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent the default action to stop form submission
+        sendMessage();
+    }
+});
+});
+
+function sendMessage() {
+  const input = document.getElementById('chatbotInput');
+  const message = input.value.trim();
+  if (message) {
+      displayMessage(message, 'user-message');
+      input.value = ''; // Clear input field
+
+      const requestBody = JSON.stringify({ message: message });
+
+      fetch('http://127.0.0.1:5000', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: requestBody
+      })
+      .then(response => response.json())
+      .then(data => {
+        const formattedData = JSON.stringify(data).replace(/\\n/g, '\n');
+          // Display the output as a bot message
+          displayMessage(formattedData, 'bot-message');
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      }); 
+  }
+}
+const messagesContainer = document.getElementById('chatbotMessages');
+// Define messagesContainer globally
+
+function displayMessage(message, className) {
+  // const messagesContainer = document.getElementById('chatbotMessages'); // Removed this line
+  
+  // Rest of the function remains the same
+  const messageDiv = document.createElement('div');
+  messageDiv.className = 'chat-message ${className}';
+
+  // Replace '\n' characters with <br> tags
+  const formattedMessage = message.replace(/\\n/g, '<br>');
+
+  messageDiv.innerHTML = formattedMessage; // Use innerHTML to render HTML content
+  const divider = document.createElement('hr'); // Add divider between messages
+  if (className === 'user-message') {
+      messagesContainer.appendChild(divider); // Append divider after user message
+  }
+  messagesContainer.appendChild(messageDiv); // Append message
+}
+
+
+
+
+
+  // Add a divider between messages
+  const divider = document.createElement('hr');
+  messagesContainer.appendChild(divider);
+
+
+</script>
+{% include 'hrms/footer.html' %}
+{% endblock content %}

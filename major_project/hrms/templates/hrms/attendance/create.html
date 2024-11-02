@@ -1,0 +1,6 @@
+{% csrf_token %}
+{{ formset.management_form }}
+   {% for form in formset %}
+      {{ form.employee.initial }} {{ form.employee}}  {{ form.attendance }}
+<br><br>
+   {% endfor %}

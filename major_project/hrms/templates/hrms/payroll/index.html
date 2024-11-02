@@ -1,0 +1,46 @@
+{% extends 'hrms/layout.html' %}
+{% load static %}
+
+{% block title %} Staff Payroll | HRIS {% endblock title %}
+
+{% block content %}
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Staff Payroll System</h4>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Account Number</th>
+                    <th>Bank Name</th>
+                    <th>Salary</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for emp in emps %}
+                  <tr>
+                    <td>{{ emp.first_name }}</td>
+                    <td>{{ emp.nuban }}</td>
+                    <td>{{ emp.bank }}</td>
+                    <td>${{ emp.salary }}</td>
+                    <td>
+                      <button type="button" onclick="payWithPaystack('{{ emp.salary }}','{{ emp.nuban }}','{{ emp.bank }}')" class="btn btn-info">Approve</button>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
